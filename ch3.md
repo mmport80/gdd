@@ -46,9 +46,9 @@ Now add multiplication:
 (*) :: Integer → Integer → Integer
 ```
 
-What laws does `*` obey? Write them down.
+What laws does `*` obey?
 
-You probably got commutativity and associativity again. And:
+Commutativity and associativity again. And also:
 
 ```
 a * 1 = a        -- identity
@@ -94,11 +94,23 @@ We cannot depend on inversion. How about switching from Integer to something els
 
 ### Float Problem
 
-..
+Float numbers include decimals. Intuitively the should account for any remainder.
+
+`7 / 2 * 2 = 6.9999`
+
+But they may not always be precise enough.
 
 ### Rational Solution
 
-..
+Rational numbers preserve the numerator and denomenator information throughout each operation.
+
+`7 / 2 * 2 = 7`
+
+You might ask why fulfilling the inversion property is so important?
+
+If we look back at each of the previous attempts at division, none actually followed the aim of the property: to divide equally. The remainders got in the way.
+
+The properties aren't just nice-to-haves, they ensure our operations do what we intend them to.
 
 ## Four Ways to HandleDivion by Zero
 
@@ -108,7 +120,7 @@ Hmm. And then:
 10 / 0 = ?
 ```
 
-this inversion is really brittle. Luckily programmers have many ways to patch this.
+this inversion is really troublesome, eh? Luckily programmers have many ways to patch this.
 
 ### 1. Throw an exception
 
@@ -118,15 +130,9 @@ The problem: **the law doesn't hold at the boundary**. Your algebra works fine u
 
 ### 2. Return a special value (`NaN`, `Infinity`)
 
-IEEE floating point takes this approach. `1.0 / 0.0 = Infinity`.
+`1.0 / 0.0 = Infinity` is not very helpful.
 
-Looks clever. But:
-
-```
-NaN == NaN    -- FALSE
-```
-
-Equality itself is now broken. `NaN ≠ NaN` violates the most fundamental law of all — that everything equals itself. The algebra is silently corrupted.
+`NaN` is another oddity. The IEEE specifies that `Nan /= NaN`, which breaks every rule in the book.
 
 ### 3. Return `Maybe Rational`
 
@@ -142,7 +148,7 @@ But now the law has changed shape:
 (a / b) >>= (* b) = Just a
 ```
 
-And you've introduced an asymmetry — division takes `Rational` but returns `Maybe Rational`. That's a little awkward. You have to unwrap before you can use the result.
+And you've introduced an asymmetry — division takes `Rational` but returns `Maybe Rational`. That's awkward. You have to unwrap before you can use the result, and lose function composition.
 
 ### 4. Lift the whole type
 
@@ -173,15 +179,11 @@ And the law holds uniformly:
 
 The lesson here isn't really about division. It's this:
 
-> **The right type is the one where your laws hold everywhere.**
+> **The right type is the one where your rules hold everywhere.**
 
 `Integer` was the wrong type for division. `Maybe Rational` is the right one.
 
-This is one of the most important decisions in ADD — before you write a single operation, ask:
-
-*What type makes my laws hold, without exceptions?*
-
-Get the type right and the laws follow naturally. Get it wrong and you spend forever patching edge cases.
+Get the type right means our operations will stay robust.
 
 ---
 
