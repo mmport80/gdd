@@ -96,9 +96,9 @@ We cannot depend on inversion. How about switching from Integer to something els
 
 Float numbers include decimals. Intuitively the should account for any remainder.
 
-`7 / 2 * 2 = 6.9999`
+`0.1 + 0.2 = 0.30000000000000004`
 
-But they may not always be precise enough.
+But they may not always be precise enough, leading to breaks in equality.
 
 ### Rational Solution
 
@@ -132,7 +132,7 @@ The problem: **the law doesn't hold at the boundary**. Your algebra works fine u
 
 `1.0 / 0.0 = Infinity` is not very helpful.
 
-`NaN` is another oddity. The IEEE specifies that `Nan /= NaN`, which breaks every rule in the book.
+`NaN` is another oddity. The IEEE specifies that `Nan /= NaN`, which breaks equality itself.
 
 ### 3. Return `Maybe Rational`
 
@@ -179,21 +179,19 @@ And the law holds uniformly:
 
 The lesson here isn't really about division. It's this:
 
-> **The right type is the one where your rules hold everywhere.**
+> **The right type is the one where your operations work reliably everywhere.**
 
-`Integer` was the wrong type for division. `Maybe Rational` is the right one.
-
-Get the type right means our operations will stay robust.
+`Integer` was the wrong type for our simple numerical algebra. `Maybe Rational` is the right one.
 
 ---
 
 ## What We Learned
 
-From one familiar example, we have the skeleton of the whole process:
+From familiar maths, we have the skeleton of the whole process:
 
-1. **Pick a type** — `Rational`, `Maybe Rational`
+1. **Pick a type** — `Maybe Rational`
 2. **Pick operations** — `+`, `*`, `/`
-3. **Write rules** — commutativity, identity, associativity, inverse
+3. **Write rules** — commutativity, identity, associativity, inverse, etc.
 4. **Check the boundaries** — where do the laws break?
 5. **Fix the type** — until the laws hold everywhere
 
