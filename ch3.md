@@ -131,7 +131,7 @@ Equality itself is now broken. `NaN ≠ NaN` violates the most fundamental law o
 ### 3. Return `Maybe Rational`
 
 ```
-(/) :: Integer → Rational → Maybe Rational
+(/) :: Rational → Rational → Maybe Rational
 ```
 
 Honest. Division might fail, and the type says so. `Nothing` when dividing by zero, `Just n` otherwise.
