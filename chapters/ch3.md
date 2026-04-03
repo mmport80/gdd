@@ -179,7 +179,7 @@ And the law holds uniformly:
 
 The lesson here isn't really about division. It's this:
 
-> **The right type is the one where your operations work reliably everywhere.**
+> **The right type is the one where your rules work reliably everywhere.**
 
 `Integer` was the wrong type for our simple numerical algebra. `Maybe Rational` is the right one.
 

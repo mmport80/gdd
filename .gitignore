@@ -1,2 +1,28 @@
 *#*
 *~
+
+# Haskell
+*.hi
+*.o
+*.dyn_hi
+*.dyn_o
+*.chi
+*.chs.h
+*.eventlog
+.HTF/
+.ghc.environment.*
+
+# Cabal
+cabal.project.local
+cabal.project.local~
+dist/
+dist-newstyle/
+
+# Stack
+.stack-work/
+
+# Nix
+result
+result-*
+
+.direnv
