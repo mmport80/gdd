@@ -38,7 +38,7 @@ a + 0 = a
 a + (-a) = 0
 ```
 
-That's it. Simple, familiar, complete.
+That's it. Simple, familiar.
 
 Now add multiplication:
 
@@ -94,7 +94,7 @@ We cannot depend on inversion. How about switching from Integer to something els
 
 ### Float Problem
 
-Float numbers include decimals. Intuitively the should account for any remainder.
+Float numbers include decimals. Intuitively they should account for any remainder.
 
 `0.1 + 0.2 = 0.30000000000000004`
 
@@ -112,7 +112,7 @@ If we look back at each of the previous attempts at division, none actually foll
 
 The properties aren't just nice-to-haves, they ensure our operations do what we intend them to.
 
-## Four Ways to HandleDivion by Zero
+## Four Ways to Handle Division by Zero
 
 Hmm. And then:
 
@@ -132,7 +132,8 @@ The problem: **the law doesn't hold at the boundary**. Your algebra works fine u
 
 `1.0 / 0.0 = Infinity` is not very helpful.
 
-`NaN` is another oddity. The IEEE specifies that `Nan /= NaN`, which breaks equality itself.
+
+`1.0 / 0.0 = NaN` is another oddity. The IEEE specifies that `Nan /= NaN`, which is strange.
 
 ### 3. Return `Maybe Rational`
 
