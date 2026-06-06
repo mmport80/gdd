@@ -2,6 +2,8 @@
 
 // Introduce addition rules and operations
 
+## Addition and Subtraction
+
 ```
 a + b = b + a
 a + 0 = a
@@ -40,6 +42,8 @@ a + (-a) = 0
 
 That's it. Simple, familiar.
 
+## Multiplication
+
 Now add multiplication:
 
 ```
@@ -65,7 +69,7 @@ Notice something: the rules don't just describe individual operations — they d
 
 ---
 
-## What About Division?
+## Division
 
 Let's add division:
 
@@ -102,7 +106,7 @@ But they may not always be precise enough, leading to breaks in equality.
 
 ### Rational Solution
 
-Rational numbers preserve the numerator and denomenator information throughout each operation.
+Rational numbers preserve the numerator and denominator information throughout each operation.
 
 `7 / 2 * 2 = 7`
 
@@ -183,10 +187,6 @@ The lesson here isn't really about division. It's this:
 > **The right type is the one where your rules work reliably everywhere.**
 
 `Integer` was the wrong type for our simple numerical algebra. `Maybe Rational` is the right one.
-
----
-
-## What We Learned
 
 From familiar maths, we have the skeleton of the whole process:
 
