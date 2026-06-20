@@ -109,15 +109,15 @@ Usage: `emptyBoard <> d1 <> d2 <> d3`
 
 The 7 properties: associativity, identity, idempotency, invertibility, distributivity, commutativity, annihilation.
 
-| Property | Holds? | Notes |
-|----------|--------|-------|
-| Associativity | ✓ | Via DeltaBoard/monoid — merging boards |
-| Identity | ✓ | emptyBoard |
-| Commutativity | ✓ | Moves commute on the board (but game enforces turn order — nice tension) |
-| Annihilation | ✓ | Wins persist — hasWon stays true after further moves |
-| Idempotency | ✗ | Blocked by type (VacantPosition/DeltaBoard consumed) |
-| Invertibility | ✗ | No undo in the rules (two-player game) |
-| Distributivity | ✗ | Not applicable |
+| Property       | Holds? | Notes                                                                    |
+|----------------|--------|--------------------------------------------------------------------------|
+| Associativity  | ✓      | Via DeltaBoard/monoid — merging boards                                   |
+| Identity       | ✓      | emptyBoard                                                               |
+| Commutativity  | ✓      | Moves commute on the board (but game enforces turn order — nice tension) |
+| Annihilation   | ✓      | Wins persist — hasWon stays true after further moves                     |
+| Idempotency    | ✗      | Blocked by type (VacantPosition/DeltaBoard consumed)                     |
+| Invertibility  | ✗      | No undo in the rules (two-player game)                                   |
+| Distributivity | ✗      | Not applicable                                                           |
 
 ## Commutativity analysis
 
