@@ -114,3 +114,16 @@ Example
 
 > main :: IO ()
 > main = example
+
+Algebraic Scorecard
+-------------------
+
+  Closure         ✓  <> takes two DeltaBoards, returns a DeltaBoard — always
+  Associativity   ✓  (a <> b) <> c = a <> (b <> c) — Map.union is associative
+  Identity        ✓  mempty = no moves; the starting state of a new game
+  Idempotence     ✓  x <> x = x — replaying the same log twice gives the same state
+  Commutativity   ✗  in general, order matters (later move wins on conflicts)
+                      but for values produced by mkDelta, deltas are disjoint
+                      and <> is effectively commutative
+  Inverses        ✗  no way to un-play a move; the log is append-only
+  Annihilation    ✗  no absorbing element; a full board still composes
