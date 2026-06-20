@@ -58,7 +58,10 @@ Project a delta log into a full board state:
 >   Board (moves `union` fromList [(p, Empty) | p <- allPositions])
 
 Smart constructor — Maybe lives here only. A move is valid only if the
-target cell is empty.
+target cell is empty. In a real codebase you'd hide the DeltaBoard
+constructor behind a module boundary (export the type name only, not the
+constructor), so this is the only way to create a single-move delta from
+outside.
 
 > mkDelta :: Position -> Player -> Board -> Maybe DeltaBoard
 > mkDelta pos player (Board cells)
