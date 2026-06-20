@@ -2,6 +2,7 @@
 
 > {-# LANGUAGE NumericUnderscores #-}
 > import Data.Map (Map, fromList, singleton, union, (!))
+> import qualified Data.Map as Map
 
 Chapter 4: Types and Structure
 ===============================
@@ -21,7 +22,6 @@ Types
 > data Cell = Empty | Taken Player deriving (Eq, Show)
 > type Position = (Int, Int)  -- (0..2, 0..2)
 >
-> newtype Board = Board (Map Position Cell) deriving (Eq, Show)
 > newtype DeltaBoard = DeltaBoard (Map Position Cell)  -- move log, opaque
 > data GameOver = Winner Player | Draw deriving (Eq, Show)
 
@@ -51,11 +51,10 @@ win on conflicts):
 > instance Monoid DeltaBoard where
 >   mempty = DeltaBoard (fromList [])
 
-Project a delta log into a full board state:
+Cell at a position — defaults to Empty if unplayed:
 
-> project :: DeltaBoard -> Board
-> project (DeltaBoard moves) =
->   Board (moves `union` fromList [(p, Empty) | p <- allPositions])
+> cellAt :: DeltaBoard -> Position -> Cell
+> cellAt (DeltaBoard cells) pos = Map.findWithDefault Empty pos cells
 
 Smart constructor — Maybe lives here only. A move is valid only if the
 target cell is empty. In a real codebase you'd hide the DeltaBoard
@@ -63,22 +62,22 @@ constructor behind a module boundary (export the type name only, not the
 constructor), so this is the only way to create a single-move delta from
 outside.
 
-> mkDelta :: Position -> Player -> Board -> Maybe DeltaBoard
-> mkDelta pos player (Board cells)
->   | cells ! pos == Empty = Just $ DeltaBoard (singleton pos (Taken player))
->   | otherwise            = Nothing
+> mkDelta :: Position -> Player -> DeltaBoard -> Maybe DeltaBoard
+> mkDelta pos player board
+>   | cellAt board pos == Empty = Just $ DeltaBoard (singleton pos (Taken player))
+>   | otherwise                 = Nothing
 
 Observations
 ------------
 
 Check if a player has won:
 
-> hasWon :: Player -> Board -> Bool
-> hasWon player (Board cells) = any (all (== Taken player) . map (cells !)) winningLines
+> hasWon :: Player -> DeltaBoard -> Bool
+> hasWon player board = any (all (== Taken player) . map (cellAt board)) winningLines
 
 Check if the game is over:
 
-> gameOver :: Board -> Maybe GameOver
+> gameOver :: DeltaBoard -> Maybe GameOver
 > gameOver board
 >   | hasWon X board           = Just (Winner X)
 >   | hasWon O board           = Just (Winner O)
@@ -87,8 +86,8 @@ Check if the game is over:
 
 List available moves:
 
-> availableMoves :: Board -> [Position]
-> availableMoves (Board cells) = [p | p <- allPositions, cells ! p == Empty]
+> availableMoves :: DeltaBoard -> [Position]
+> availableMoves board = [p | p <- allPositions, cellAt board p == Empty]
 
 Example
 -------
@@ -96,18 +95,18 @@ Example
 > example :: IO ()
 > example = do
 >   let deltas = mempty :: DeltaBoard
->   putStrLn $ "Empty board: " ++ show (length (availableMoves (project deltas))) ++ " available moves"
+>   putStrLn $ "Empty board: " ++ show (length (availableMoves deltas)) ++ " available moves"
 >
->   case mkDelta (0, 0) X (project deltas) of
+>   case mkDelta (0, 0) X deltas of
 >     Just delta -> do
 >       let deltas1 = deltas <> delta
->       putStrLn $ "X plays at (0,0): " ++ show (length (availableMoves (project deltas1))) ++ " moves left"
+>       putStrLn $ "X plays at (0,0): " ++ show (length (availableMoves deltas1)) ++ " moves left"
 >
->       case mkDelta (1, 1) O (project deltas1) of
+>       case mkDelta (1, 1) O deltas1 of
 >         Just delta2 -> do
 >           let deltas2 = deltas1 <> delta2
->           putStrLn $ "O plays at (1,1): " ++ show (length (availableMoves (project deltas2))) ++ " moves left"
->           case gameOver (project deltas2) of
+>           putStrLn $ "O plays at (1,1): " ++ show (length (availableMoves deltas2)) ++ " moves left"
+>           case gameOver deltas2 of
 >             Nothing -> putStrLn "Game continues"
 >             Just end -> putStrLn $ "Game over: " ++ show end
 >         Nothing -> putStrLn "Invalid move for O"
