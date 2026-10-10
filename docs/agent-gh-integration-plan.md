@@ -11,8 +11,10 @@ Goal: drive agent work on the gdd repo through GitHub issues and PRs, from anywh
 - Host: Hermes runs on alow-aws (NixOS). (decided)
 - Trigger rule: no keyword or command. The only human is the user, so any new comment from the user's account starts a run. (decided)
 - Who can trigger: only the user's account. The agent has its own clearly identified account. (decided)
-- Agent name: tessera (GitHub account: tessera-bot, final name to be confirmed when created). A tessera is one tile in a mosaic; each contribution is a piece that fits the whole. (proposed, pending user OK)
-- Hermes profile: a dedicated profile named tessera, so its config, memory, skills, and sessions stay separate from the default profile used interactively. (proposed, pending user OK)
+- Agent name: tessera (GitHub account: tessera-bot, to be created). (decided)
+- Model: anthropic/claude-haiku-5.5 to start. (decided)
+- Phase 2 (opening issues, merging, CI edits): deferred. (decided)
+- Hermes profile: dedicated profile named tessera, so its config, memory, skills, and sessions stay separate from the default profile. (decided; created on alow-aws, model anthropic/claude-haiku-5.5 via openrouter)
 - Starting permissions (phase 1, deliberately narrow):
   - Allowed: comment on issues and PRs; push to agent/* branches; open PRs; run the gdd Nix dev shell to build and test.
   - Not allowed: opening issues, merging, pushing to main, editing .github/workflows, changing branch protection or repo settings.
@@ -92,8 +94,4 @@ Kanban (multi-profile orchestration) is out of scope for phase 1. Add it once a 
 
 ## 7. Open questions
 
-- Confirm agent name: tessera / tessera-bot?
-- Confirm profile name: tessera?
-- Which model should the tessera profile use? (The default profile currently uses anthropic/claude-haiku-5.5.)
-- Keep this plan in gdd/docs/ and commit it, or keep it out of the repo?
-- Phase 2: when to allow the agent to open issues, merge, or edit CI config?
+- Tessera profile has no API key yet. It inherits from the shell environment, which won't reach cron jobs. Add the OpenRouter key to the tessera .env before setting up polling.
