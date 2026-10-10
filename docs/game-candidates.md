@@ -3,6 +3,11 @@
 Working document for issue #5. Iterative: scores are a first pass and
 the author should adjust weights and entries. Nothing here is chapter prose.
 
+Round 2 (author feedback on issue #5): do not rule candidates out early.
+Scores rank the list, they do not exclude anything. One game per chapter.
+Short chapters are preferred. Section 6 explains the terms the author asked
+about (solver, Hackenbush, surreals).
+
 ## 1. What makes a game a good chapter
 
 Hard requirements (a candidate fails if any is missing):
@@ -30,10 +35,13 @@ Scored factors (1 to 5 each, 5 is best):
 
 Weighted score = 2A + 2N + S + R + P + F (max 30). A and N are doubled
 because the book's purpose is algebra-driven design and new concepts.
-Weights are a judgement call; change them here if you disagree.
+Weights are a judgement call; change them here if you disagree. The author
+asked not to get hung up on weighting: treat the total as a sort key only.
 
 Automatic flags (not scored, but noted in the table):
 
+- Length: the author prefers short chapters. A length estimate (short,
+  medium, long) is not yet in the table; add it in the next pass.
 - Needs search to be interesting (AI is a chapter of its own).
 - Uses a dictionary or external data.
 - Trademarked name (use a generic name in the chapter).
@@ -79,8 +87,10 @@ sorted by total; Section 3 is the ranking.
 | Cribbage                    | 2 2 4 3 3 2 | 20    | Mod-31 counting; scoring rules heavy                    |
 | Snakes & Ladders            | 2 1 5 5 2 1 | 19    | No decisions; dynamics only (weak fit)                  |
 
-Excluded from the table: Go, Chess, Shogi (scope too large for one chapter),
-Mahjong and Scrabble (large data or rules), Go Fish (too trivial).
+Not in the table yet. These are not ruled out; they are noted with the reason
+they are harder: Go, Chess, Shogi (large rules and search), Mahjong and
+Scrabble (large data or rules), Go Fish (very thin on decisions). Score them
+in the next pass if the author wants.
 
 ## 3. Ranking (first pass)
 
@@ -90,7 +100,7 @@ high score that breaks H1 to H4 is not in the top tier.
 Tier 1, strong chapter candidates:
 
 1. 2x2 pocket cube (36). Clearest group in the list. Needs a solver,
-   which is the main scope risk. Use a generic name in the text.
+   which is the main scope risk (see section 6). Use a generic name in the text.
 2. Lights Out (34). Linear algebra over GF(2). Solving is Gaussian
    elimination. Strong self-inverse theme (mirrors the undo theme of Ch6).
 3. Ultimate Tic-Tac-Toe (32). Direct sequel to Ch4 Noughts & Crosses.
@@ -110,22 +120,23 @@ Tier 2, good but needs a choice:
    Minesweeper chapter.
 9. Blokus (29). D4 symmetry is attractive but the game has many rules.
 
-Tier 3, teasers or weak fit: everything at 28 and below. Hackenbush
-(32) is ranked high on algebra but is advanced; treat it as a future
-appendix, not a main chapter, unless the author wants surreals.
+Tier 3, lower priority but not ruled out: everything at 28 and below.
+Hackenbush (32) is ranked high on algebra but is advanced; it may be a
+later chapter or an appendix. Whether it is an appendix is an open question.
 
-Rock-Paper-Scissors family (33) scores highly on the rubric but is
-too thin to be a chapter on its own. Use it as a worked example inside
-the group chapter.
+Rock-Paper-Scissors family (33) scores highly on the rubric but may be too
+thin for a chapter of its own. It could be a worked example inside the group
+chapter, or a short chapter if the author wants one.
 
 ## 4. Open questions for the author
 
-- Should the rubric weight algebra over fun, or the reverse?
-- Is one chapter per game still the target, or can a chapter cover two
-  games (for example Hangman plus Minesweeper)?
+- Answered (issue #5): do not weight heavily; explore many games; one game
+  per chapter; short chapters preferred.
 - Is a "solver" acceptable scope for the 2x2 cube and Lights Out, or
-  should those be deferred?
-- Should the Hackenbush / surreal material be an appendix?
+  should those be deferred? The author asked what the solver is for; see
+  section 6. Decision pending.
+- Should the Hackenbush / surreal material be an appendix? Author asked what
+  Hackenbush and surreals are; see section 6. Decision pending.
 
 ## 5. Next iteration
 
@@ -133,3 +144,28 @@ the group chapter.
   code/ as a throwaway) to check scope estimates.
 - Adjust the weights after the author responds.
 - Keep this file as the source of truth; GAMES.md links here.
+
+## 6. Terms
+
+Solver. A program that takes a scrambled state and returns a sequence of
+moves that reaches the solved state. For the 2x2 cube it is a search over
+the moves (for example breadth-first search, or IDA*). Its purpose in the
+chapter would be to make the group claims checkable: moves compose, and each
+move's inverse undoes it. It is not needed to play the game. For Lights Out
+the solve is different: Gaussian elimination over GF(2), with no search.
+Either way the question is whether the code stays small enough for a short
+chapter.
+
+Hackenbush. A two-player game on a graph drawn on the ground. In Blue-Red
+Hackenbush, edges are coloured blue or red. Left (blue) cuts a blue edge and
+Right (red) cuts a red edge on their turn. Any piece no longer connected to
+the ground falls away. A player with no move loses. Positions have values
+given by Conway's combinatorial game theory; a stick of n blue edges has
+value n.
+
+Surreal numbers. A number system (Conway) that extends the reals with
+infinitesimals and infinite values. Each number is built from a pair of sets
+{L | R} of earlier numbers, with every element of L below every element of R.
+Hackenbush is a concrete way in: the values come out of play before the
+formal construction. Whether this belongs in a chapter or an appendix is
+open (section 4).
