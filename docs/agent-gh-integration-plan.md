@@ -11,7 +11,7 @@ Goal: drive agent work on the gdd repo through GitHub issues and PRs, from anywh
 - Host: Hermes runs on alow-aws (NixOS). (decided)
 - Trigger rule: no keyword or command. The only human is the user, so any new comment from the user's account starts a run. (decided)
 - Who can trigger: only the user's account. The agent has its own clearly identified account. (decided)
-- Agent name: tessera (GitHub account: tessera-bot, to be created). (decided)
+- Agent identity: GitHub App named tessera, owned by mmport80, installed on gdd only. Acts as tessera[bot]. Replaces the tessera-bot user account. (decided)
 - Model: anthropic/claude-haiku-5.5 to start. (decided)
 - Phase 2 (opening issues, merging, CI edits): deferred. (decided)
 - Hermes profile: dedicated profile named tessera, so its config, memory, skills, and sessions stay separate from the default profile. (decided; created on alow-aws, model anthropic/claude-haiku-5.5 via openrouter)
@@ -23,7 +23,7 @@ Goal: drive agent work on the gdd repo through GitHub issues and PRs, from anywh
 - Agent write access: the agent writes code, tests, and tooling, and may push branches and open PRs. Book prose stays with the user. (decided)
 - gh CLI: install via Nix in environment.systemPackages on alow-aws. (user doing)
 - Port 8644 (webhooks): not opened. Security implications still under review by user. (deferred, Option B)
-- Agent GitHub account: not yet created. (pending, user)
+- Agent GitHub App: not yet created. (pending, user)
 - Branch protection on main: not yet enabled. (pending, user)
 
 ## 1. Summary
@@ -37,7 +37,7 @@ Goal: drive agent work on the gdd repo through GitHub issues and PRs, from anywh
 | Actor | Who | Can do |
 |---|---|---|
 | User (john) | Repo owner | Comment, review, merge, write prose |
-| Agent account (tessera-bot, TBD) | Dedicated GitHub account, clearly identified as an agent | Comment, push to agent/* branches, open PRs (phase 1 limits in section 0) |
+| Agent (GitHub App tessera, acts as tessera[bot]) | Installed on gdd only; shown as a bot in GitHub's UI | Comment, push to agent/* branches, open PRs (phase 1 limits in section 0) |
 | Hermes profile tessera on alow-aws | Runs as a non-root user (name TBD) | Acts through the agent account's token; runs the gdd dev shell |
 
 Rules:
@@ -72,8 +72,8 @@ Kanban (multi-profile orchestration) is out of scope for phase 1. Add it once a 
 
 ## 5. Security notes
 
-- Agent token: fine-grained PAT (or GitHub App) scoped to the gdd repo only. Contents, pull requests, issues: read and write. Nothing else.
-- Store the token in the tessera profile's .env (secrets only), not in config.yaml.
+- Agent auth: GitHub App installation tokens (1-hour lifetime), scoped to gdd by the installation. Permissions: contents, pull requests, issues read and write; metadata read. Nothing else.
+- The App private key lives in a mode 600 file outside the repo. The tessera .env holds its path and the App/installation IDs, not the key. Never in config.yaml.
 - Prompt injection: issue and PR text is untrusted input. The agent should not run arbitrary commands taken from comment text without the user's own instruction in the same thread.
 - Running the dev shell executes project code. That's acceptable for gdd, but changes to flake.nix or build scripts should be reviewed in the PR before the next run.
 - Run the agent as a non-root user on alow-aws.
@@ -82,10 +82,10 @@ Kanban (multi-profile orchestration) is out of scope for phase 1. Add it once a 
 ## 6. Setup steps
 
 1. [User] Install gh on alow-aws (add `gh` to environment.systemPackages and rebuild).
-2. [User] Create the agent GitHub account (tessera-bot, or the final name). Invite it to the gdd repo with write access.
-3. [User] Enable branch protection on main: require PR, require approval, no bypass for the agent account.
-4. [Agent] Create the tessera profile on alow-aws and set its model.
-5. [Agent] Create the fine-grained token for the agent account; place it in the tessera profile's .env on alow-aws.
+2. [User] Create the GitHub App "tessera" under mmport80: permissions Contents, Pull requests, Issues (read and write), Metadata (read); webhook disabled. Install it on the gdd repo only. Generate a private key and save it on alow-aws with mode 600, outside the repo.
+3. [User] Enable branch protection on main: require PR, require approval, no bypass for tessera.
+4. [Done] tessera profile created on alow-aws, model anthropic/claude-haiku-5.5.
+5. [Agent] Write a token helper: sign a JWT with the App key, exchange it for a short-lived installation token, and export it as GH_TOKEN per run. The tessera .env holds only the App ID, installation ID, and key path, never the key contents.
 6. [Agent] Clone gdd on alow-aws and verify `nix develop` builds the dev shell there.
 7. [Agent] Verify gh auth as the agent account on alow-aws.
 8. [Agent] Write the polling script and cron entry; test on a throwaway issue.
