@@ -15,6 +15,10 @@ shebang runs it inside `nix develop`, so GHC comes from the flake. It needs
 only GHC's bundled libraries (base, process, directory, filepath). It exits
 0 only when every assessed chapter passes.
 
+New chapters start from `code/template/Template.lhs`, which has the
+required headings in order and a small example that passes the gates. The
+checker does not read `code/template/`.
+
 ## Gates (must pass, checked by the script)
 
 G1 Runs. `runghc` exits 0 and prints output. The example is the chapter's
