@@ -27,6 +27,15 @@ Games to build as chapters, each teaching different algebraic/functional concept
 |-------------|---------------------------------------------------|
 | Minesweeper | Semilattice (refinement by evidence), commutativity   |
 | Nim         | XOR group, self-inverse, algebra as strategy      |
+| 2x2 cube    | Permutation group, generators, inverses (ranked #1, see docs/game-candidates.md) |
+| Lights Out  | Vector space over GF(2), solving as linear algebra (ranked #2) |
+| Ultimate Tic-Tac-Toe | Nested games, composition of the Ch4 monoid (ranked #3) |
+| Hex         | Union-find, connectivity join, no draws (ranked #4) |
+| 2048        | Non-commutative move monoid (ranked #5)           |
+| 15-puzzle   | Permutation group, parity invariant (alternative to 2x2 cube) |
+| Hangman     | Semilattice of guesses (simpler precursor to Minesweeper) |
+
+Full factors, scores, and ranking: docs/game-candidates.md.
 
 ### Minesweeper — Semilattice
 
