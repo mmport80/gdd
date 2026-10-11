@@ -6,7 +6,7 @@ the author should adjust weights and entries. Nothing here is chapter prose.
 Round 2 (author feedback on issue #5): do not rule candidates out early.
 Scores rank the list, they do not exclude anything. One game per chapter.
 Short chapters are preferred. Section 6 explains the terms the author asked
-about (solver, Hackenbush, surreals).
+about (Hackenbush, surreals).
 
 ## 1. What makes a game a good chapter
 
@@ -59,7 +59,7 @@ sorted by total; Section 3 is the ranking.
 |-----------------------------|-------------|-------|---------------------------------------------------------|
 | 2x2 pocket cube             | 5 5 3 4 5 4 | 36    | Permutation group, generators, inverses, commutators    |
 | Rock-Paper-Scissors family  | 5 4 5 5 3 2 | 33    | Cyclic group Z_n, tournament as group action (small)    |
-| Lights Out                  | 5 4 5 4 3 4 | 34    | Vector space over GF(2), solving as linear algebra      |
+| Lights Out                  | 5 4 5 4 3 4 | 34    | Vector space over GF(2), linear algebra                 |
 | Hackenbush                  | 5 5 3 3 3 3 | 32    | Surreal numbers from game trees (advanced)              |
 | Ultimate Tic-Tac-Toe        | 4 4 3 4 4 5 | 32    | Nested games: product/composition of Ch4 monoid         |
 | 2048                        | 4 4 3 5 4 4 | 32    | Monoid of row/board moves, non-commutative composition  |
@@ -104,10 +104,10 @@ in the top tier.
 
 Tier 1, strong chapter candidates:
 
-1. 2x2 pocket cube (36). Clearest group in the list. Needs a solver,
-   which is the main scope risk (see section 6). Use a generic name in the text.
-2. Lights Out (34). Linear algebra over GF(2). Solving is Gaussian
-   elimination. Strong self-inverse theme (mirrors the undo theme of Ch6).
+1. 2x2 pocket cube (36). Clearest group in the list. Use a generic name in
+   the text.
+2. Lights Out (34). Linear algebra over GF(2). Strong self-inverse theme
+   (mirrors the undo theme of Ch6).
 3. Ultimate Tic-Tac-Toe (32). Direct sequel to Ch4 Noughts & Crosses.
    Shows algebra composing across levels of structure.
 4. Hex (31). Union-find and a connectivity join. Determinacy (no draws).
@@ -139,9 +139,6 @@ chapter, or a short chapter if the author wants one.
   per chapter; short chapters preferred.
 - Is there a target for core code length? Not set. The author asked not to
   rule candidates out by numbers, so any figure would be a soft guide.
-- Is a "solver" acceptable scope for the 2x2 cube and Lights Out, or
-  should those be deferred? The author asked what the solver is for; see
-  section 6. Decision pending.
 - Should the Hackenbush / surreal material be an appendix? Author asked what
   Hackenbush and surreals are; see section 6. Decision pending.
 
@@ -153,15 +150,6 @@ chapter, or a short chapter if the author wants one.
 - Keep this file as the source of truth; GAMES.md links here.
 
 ## 6. Terms
-
-Solver. A program that takes a scrambled state and returns a sequence of
-moves that reaches the solved state. For the 2x2 cube it is a search over
-the moves (for example breadth-first search, or IDA*). Its purpose in the
-chapter would be to make the group claims checkable: moves compose, and each
-move's inverse undoes it. It is not needed to play the game. For Lights Out
-the solve is different: Gaussian elimination over GF(2), with no search.
-Either way the question is whether the code stays small enough for a short
-chapter.
 
 Hackenbush. A two-player game on a graph drawn on the ground. In Blue-Red
 Hackenbush, edges are coloured blue or red. Left (blue) cuts a blue edge and
