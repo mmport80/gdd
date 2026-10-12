@@ -71,12 +71,12 @@ proxy for how much fits on the page, not the page itself.
 
 X1 Fits the page. The example reads at the book's measure without a line
    break splitting an idea. Judge by reading, not by counting: one clear
-   expression at 90 columns is fine; a 70-column line packed with nested
-   calls is not. Guide: up to 80 columns is comfortable; 81 to 100 is
+   expression at 55 columns is fine; a 45-column line packed with nested
+   calls is not. Guide: up to 50 columns is comfortable; 51 to 60 is
    allowed when wrapping would split an expression the reader needs whole;
-   over 100 is not, and the line must be wrapped at an operator or argument.
-   Score 2 when every line is within 80 or the longer ones are justified;
-   1 when a few lines pass 100 or a wrap splits an idea; 0 when many do.
+   over 60 is not, and the line must be wrapped at an operator or argument.
+   Score 2 when every line is within 50 or the longer ones are justified;
+   1 when a few lines pass 60 or a wrap splits an idea; 0 when many do.
 
 X2 Names say what they mean. Types, operations and laws use names a
    reader can guess without a glossary. A name that needs a comment to
