@@ -62,9 +62,21 @@ The code has to read on the page, not only run. These items are the X
 side of the rubric. They are judged by a person and are not checked by the
 script. The scale is 0 (not met), 1 (partly), 2 (fully).
 
-X1 Line length. Code lines fit within 80 columns, so the example reads
-   without horizontal scrolling. Wrap long expressions at operators or
-   arguments rather than letting them run on.
+Reference points for the measure (not rules in themselves): the Tweag
+Haskell style guide and HaskellWiki's programming guidelines use 80
+columns (HaskellWiki prefers 75); the cardano-sl style guide allows 100
+when 80 forces worse structure. Typeset Haskell in books (lhs2TeX, as used
+by DSLsofMath) sets code in proportional type, so a column count is a
+proxy for how much fits on the page, not the page itself.
+
+X1 Fits the page. The example reads at the book's measure without a line
+   break splitting an idea. Judge by reading, not by counting: one clear
+   expression at 90 columns is fine; a 70-column line packed with nested
+   calls is not. Guide: up to 80 columns is comfortable; 81 to 100 is
+   allowed when wrapping would split an expression the reader needs whole;
+   over 100 is not, and the line must be wrapped at an operator or argument.
+   Score 2 when every line is within 80 or the longer ones are justified;
+   1 when a few lines pass 100 or a wrap splits an idea; 0 when many do.
 
 X2 Names say what they mean. Types, operations and laws use names a
    reader can guess without a glossary. A name that needs a comment to
