@@ -6,7 +6,7 @@
 --
 -- Checks per chapter:
 --   run        runghc exits 0 and prints something (gate)
---   sections   required headings are present (gate for ch4+; ch3 is reported)
+--   sections   required headings are present (gate for every chapter)
 --   laws       every law binding (`> testN = ...`) evaluates to True (gate)
 --   scorecard  number of ✓ / ✗ rows in "Algebraic Scorecard" and whether any
 --              law backs them (warning if ✓ rows exist and there are no law
@@ -203,8 +203,7 @@ assess root ch = do
   contents <- if exists then readFile (root </> path) else pure ""
   run <- checkRun root path
   let missing = missingSections contents
-      gated = ch >= 4
-      sectionsOk = null missing || not gated
+      sectionsOk = null missing
   laws <- checkLaws root path contents
   let sc = checkScorecard contents (lawCount laws)
       passed = runOk run && lawOk laws && sectionsOk
@@ -216,9 +215,7 @@ assess root ch = do
   putStrLn $
     if null missing
       then "  sections:  ok"
-      else
-        "  sections:  missing " ++ intercalate ", " missing
-          ++ (if gated then "" else " (not gated before ch4)")
+      else "  sections:  missing " ++ intercalate ", " missing
   putStrLn lawLine
   putStrLn ("  scorecard: " ++ show (scHolds sc) ++ " ✓, " ++ show (scFails sc) ++ " ✗")
   mapM_ (\w -> putStrLn ("  warning:   " ++ w)) (scWarning sc)
