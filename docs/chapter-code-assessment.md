@@ -28,9 +28,9 @@ G2 Laws hold. Every law binding (`> testN = ...`) evaluates to `True` under
    `ghc -e`. A law that evaluates to `False` is a bug in the code or in the
    claim the chapter makes about it.
 
-G3 Sections present (chapter 4 onward). The headings Types, Algebra,
-   Observations, Example, Algebraic Scorecard. Chapter 3 is reported but
-   not gated, because its layout differs.
+G3 Sections present (every chapter). The headings Types, Algebra,
+   Observations, Example, Algebraic Scorecard. Every chapter is gated,
+   including chapter 3.
 
 ## Judged (human review, scored 0-2 each)
 
@@ -64,8 +64,9 @@ on the judged items is ready. Anything below needs refinement.
 
 ## Current status (first run)
 
-- ch3: runs; 9 law bindings, all True. Not gated on sections (its
-  headings differ). No scorecard.
+- ch3: runs; 9 law bindings, all True. Fails the sections gate: its
+  headings differ (no Types, Observations, Example, or Algebraic
+  Scorecard heading). Restructuring it is the author's call (issue #19).
 - ch4-ch7: run and pass the gates, but have no law bindings. Scorecards
   claim ✓ for ch4 (4), ch5 (3), ch6 (4), ch7 (4). No law checks back
   those claims, so J1 is unverified for these chapters until law
