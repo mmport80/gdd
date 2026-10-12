@@ -32,7 +32,7 @@ G3 Sections present (chapter 4 onward). The headings Types, Algebra,
    Observations, Example, Algebraic Scorecard. Chapter 3 is reported but
    not gated, because its layout differs.
 
-## Judged (human review, scored 0-2 each)
+## Judged: technical (human review, scored 0-2 each)
 
 J1 Claims are backed. Each ✓ in the Algebraic Scorecard has a law binding
    that checks it. Each ✗ has a reason. The script reports the counts and
@@ -56,11 +56,48 @@ J5 Literate form. Code lines are prefixed with `> `. Non-code text is
 J6 Minimal. No unused definitions, no helpers that the chapter does not
    use.
 
+## Judged: readability (human review, scored 0-2 each)
+
+The code has to read on the page, not only run. These items are the X
+side of the rubric. They are judged by a person and are not checked by the
+script. The scale is 0 (not met), 1 (partly), 2 (fully).
+
+X1 Line length. Code lines fit within 80 columns, so the example reads
+   without horizontal scrolling. Wrap long expressions at operators or
+   arguments rather than letting them run on.
+
+X2 Names say what they mean. Types, operations and laws use names a
+   reader can guess without a glossary. A name that needs a comment to
+   explain it is a weak name.
+
+X3 Layout shows structure. Blank lines and indentation separate the ideas,
+   so the outline of the chapter is visible at a glance. Related
+   definitions sit together.
+
+X4 One idea at a time. Each definition does one thing and fits on a
+   screen. A reader meets one new idea per step, in the order the chapter
+   introduces them.
+
+X5 Reads top to bottom. Definitions come before they are used, in the
+   order the chapter explains them. The reader does not have to jump back
+   and forth to follow the example.
+
+X6 Consistent notation. The same concept has the same name and shape as
+   in earlier chapters. A reader who knows one chapter can read the next
+   without relearning the symbols.
+
 ## Scoring
 
-A chapter passes when all gates pass. Judged items are a 0-2 scale each,
-recorded in the review of the issue or PR. A chapter at or above 8 of 12
-on the judged items is ready. Anything below needs refinement.
+A chapter passes when all gates pass. Judged items are scored 0-2 each,
+recorded in the review of the issue or PR. Technical (J) and readability
+(X) are scored separately, each out of 12, and both count toward ready:
+
+- J: 8 of 12 or more (six items).
+- X: 8 of 12 or more (six items).
+
+A chapter is ready when it passes the gates and meets both bars. Anything
+below needs refinement. The X bar is a starting point and can be changed
+after the first chapters are scored.
 
 ## Current status (first run)
 
