@@ -98,6 +98,15 @@ X6 Consistent notation. The same concept has the same name and shape as
    in earlier chapters. A reader who knows one chapter can read the next
    without relearning the symbols.
 
+## High-level goal (guidance, not scored)
+
+The code should draw the reader in at a glance: a reader wants to keep
+reading without effort. It may be expressive with little code, or terse
+where the terseness is earned. Whether it is beautiful is a judgement for
+the reader and the author, so no score or checklist is attached. The X
+items above are the measurable side of this goal; the rest is left to
+review.
+
 ## Scoring
 
 A chapter passes when all gates pass. Judged items are scored 0-2 each,
