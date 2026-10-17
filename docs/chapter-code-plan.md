@@ -1,5 +1,19 @@
 # Chapter code plan (generic, for writing code/chN/Algebra.lhs)
 
+## Goal (the book, in one paragraph)
+
+The book is the goal. Each chapter's code is a small, rough part of it.
+The book's elevator pitch, from README.md: "A book that uses simple games
+to teach algebra-driven design, in the spirit of Sandy Maguire's
+Algebra-Driven Design. Each game introduces a few algebraic concepts
+(monoids, groups, semilattices) and shows how the laws guide the code."
+
+The pitch wording is the author's. Before writing a chapter, read this
+paragraph and the chapter's game in GAMES.md, and check that the code
+serves the pitch: the algebra should be the thing that guides the design.
+If the pitch and the game disagree, flag it in the PR; do not resolve it
+in code.
+
 Purpose: one plan that a model (or a person) follows to write the Haskell
 example for a new chapter. It covers code only. Chapter prose, narrative,
 headings text, and the content of the Algebraic Scorecard claims are the
