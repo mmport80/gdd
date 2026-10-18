@@ -66,8 +66,13 @@ copy that pattern. Every ✓ needs a `> testN = ...` binding.
 
 ## 2. Pick the algebra and write the types
 
-- Name the algebraic structure the chapter teaches, in one line, from the
-  game's entry. The code must satisfy its laws.
+- Name the algebraic structure the chapter teaches, in one line. Focus on
+  a simple, high-quality algebra first (a monoid, a semilattice, a small
+  group, ...), and do not force the game to fit a structure. If the
+  game's entry names a structure that fits, use it; if not, pick the
+  simple algebra that is clearest and note the mismatch in the PR. The
+  author weaves each chapter into the book's narrative later. The code
+  must satisfy the laws it names.
 - Write the types first, with the smallest set of constructors. Use the
   same name for the same concept as earlier chapters.
 - Make invalid states unrepresentable where the rules allow it. Hide raw
