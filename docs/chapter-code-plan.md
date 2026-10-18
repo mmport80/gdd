@@ -77,7 +77,9 @@ copy that pattern. Every ✓ needs a `> testN = ...` binding.
   same name for the same concept as earlier chapters.
 - Make invalid states unrepresentable where the rules allow it. Hide raw
   constructors behind `mk*` smart constructors that return Maybe or
-  Either. Maybe/Either appears only at the boundary (J2).
+  Either. Maybe/Either is only created at the boundary (J2). An operation
+  may work on a lifted type (for example Maybe Rational, as in ch3) if it
+  stays total on that type.
 - Operations on the chapter's type must be total.
 
 ## 3. Write the algebra
@@ -92,7 +94,8 @@ copy that pattern. Every ✓ needs a `> testN = ...` binding.
 ## 4. Write observations
 
 - Observations are pure functions that read the state: winners, scores,
-  availability, validity. Keep them total.
+  availability, validity. Keep them total. An observation that can fail
+  returns Maybe or Either, and that is only at the boundary (J2).
 - Each observation a reader needs for the example gets a short, plain name
   (X2).
 

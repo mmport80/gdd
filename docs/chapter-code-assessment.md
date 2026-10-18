@@ -38,7 +38,7 @@ J1 Claims are backed. Each ✓ in the Algebraic Scorecard has a law binding
    that checks it. Each ✗ has a reason. The script reports the counts and
    warns when ✓ claims have no law bindings at all.
 
-J2 Smart constructors. Maybe / Either appears only at the boundary (the
+J2 Smart constructors. Maybe / Either is only created at the boundary (the
    `mk*` constructors and observations that can fail). Algebra operations
    are total on the chapter's type.
 
