@@ -109,20 +109,16 @@ review.
 
 ## Scoring
 
-Gates are the only pass or fail. A chapter passes when all gates pass.
+A chapter passes when all gates pass. Judged items are scored 0-2 each,
+recorded in the review of the issue or PR. Technical (J) and readability
+(X) are scored separately, each out of 12, and both count toward ready:
 
-Judged items are scored 0-2 each, recorded in the review of the issue or
-PR. Technical (J) and readability (X) are scored separately, each out of 12
-points (six items, 0-2 each):
+- J: 8 of 12 or more (six items).
+- X: 8 of 12 or more (six items).
 
-- J: points out of 12.
-- X: points out of 12.
-
-There is no threshold on J or X. Higher points are better, and the points
-are reported as they are; a chapter is not finished because it reaches some
-number. The J and X items are meant to be comprehensive, so refining toward
-a higher score is the goal, not over-optimising. Stop when the round or
-candidate limits in docs/auto-research.md are reached.
+A chapter is ready when it passes the gates and meets both bars. Anything
+below needs refinement. The X bar is a starting point and can be changed
+after the first chapters are scored.
 
 ## Current status (first run)
 
