@@ -17,9 +17,9 @@ docs/chapter-code-assessment.md.
    bars (J 8 of 12, X 8 of 12).
 3. The current `code/chN/Algebra.lhs`, if it exists. Otherwise start from
    `code/template/Template.lhs`.
-4. The other chapters' `code/ch*/Algebra.lhs` files for names and shapes, so
-   the notation matches (X6). Chapter order is not settled, so treat every
-   chapter as relevant, not only the ones before or after this one.
+4. The `code/ch*/Algebra.lhs` files of every chapter, for names and shapes,
+   so the notation matches (X6). Chapter order is not settled and every
+   chapter is relevant. No chapter is treated as a neighbour.
 5. `chapters/chN.md`, if present, to see what the chapter claims. Read it
    only to check that the code matches the claim. Do not edit it.
 
