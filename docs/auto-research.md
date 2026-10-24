@@ -17,8 +17,9 @@ docs/chapter-code-assessment.md.
    bars (J 8 of 12, X 8 of 12).
 3. The current `code/chN/Algebra.lhs`, if it exists. Otherwise start from
    `code/template/Template.lhs`.
-4. Neighbouring chapters (`code/ch*/Algebra.lhs`) for names and shapes, so
-   the notation matches (X6).
+4. The other chapters' `code/ch*/Algebra.lhs` files for names and shapes, so
+   the notation matches (X6). Chapter order is not settled, so treat every
+   chapter as relevant, not only the ones before or after this one.
 5. `chapters/chN.md`, if present, to see what the chapter claims. Read it
    only to check that the code matches the claim. Do not edit it.
 
@@ -58,32 +59,39 @@ check whether the stall is a local minimum (see below).
 
 ## Local minima and stepping back
 
-A stall with no kept change does not always mean the design is done. Often
-the current version is a local minimum: every small change that is still
-allowed by the gates makes the score worse or leaves it flat, but a
-different design would score higher. Before the third non-improving round,
-do these checks in order:
+A stall with no kept change does not always mean the design is done. The
+current version can be a local minimum: every small change that the gates
+allow makes the score worse or leaves it flat, while a different design
+would score higher. Do not keep polishing from inside that minimum.
 
-1. Look at the weakest scored items in the current version. Is each
-   remaining gap fixable by a small edit inside this design? If not, the
-   design is probably the limit, not the edits.
-2. Look at the last kept commit and the baseline. If the score has drifted
-   from the best kept version (for example, earlier rounds traded J6 for
-   J1), go back to the best version and try a hypothesis from a different
-   rubric item.
-3. Change the kind of move, not only its size. A small edit, then a larger
-   structural edit (the carrier, the observation, the laws), then a
-   candidate algebra. Do not repeat the same kind of edit with new
-   wording.
+Stepping back means looking at the wider landscape before the next edit,
+not only at the last few rounds. Before the third non-improving round, do
+these checks in order:
 
-A step back is a revert to an earlier kept version, followed by a different
-hypothesis. It is not a new budget. Do not reset the stall counter on a
-step back. Only a kept round resets it. A step back that also stalls
-counts toward the same three-round limit, and the next move is a candidate
+1. Survey the bigger picture. Re-read the rubric (J1 to J6, X1 to X6) and,
+   if present, `chapters/chN.md`. Ask what a better example for this
+   chapter could look like if the current design were set aside. Note two
+   or three different designs (another carrier, another observation,
+   another monoid or group structure) that could meet both bars.
+2. Check whether the design is the limit. For each weakest scored item, ask
+   whether a small edit inside this design can fix it. If none can, the
+   next move is a different design, not another edit.
+3. Pick the next hypothesis from that survey, even if it is not the item
+   the last rounds were working on. The starting point can be the current
+   version or the best kept version if the score has drifted (for example,
+   earlier rounds traded J6 for J1).
+4. Change the kind of move, not only its size: a structural edit (the
+   carrier, the observation, the laws) or a candidate algebra. Do not
+   repeat the same kind of edit with new wording.
+
+A step back is not a new budget. Do not reset the stall counter on a step
+back. Only a kept round resets it. A step back that also stalls counts
+toward the same three-round limit, and the next move is a candidate
 algebra or a stop.
 
-Record each step back in the hand-off: which version was returned to, the
-hypothesis used instead, and why the local minimum was suspected.
+Record each step back in the hand-off: what the survey covered, which
+version was used as the starting point, the hypothesis chosen, and why the
+local minimum was suspected.
 
 ## Trying a new algebra
 
