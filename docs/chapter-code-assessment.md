@@ -38,9 +38,7 @@ J1 Claims are backed. Each ✓ in the Algebraic Scorecard has a law binding
    that checks it. Each ✗ has a reason. The script reports the counts and
    warns when ✓ claims have no law bindings at all.
 
-J2 Smart constructors. Maybe / Either is only created at the boundary (the
-   `mk*` constructors and observations that can fail). Algebra operations
-   are total on the chapter's type.
+J2 Smart constructors. Maybe / Either is only created at the boundary (the mk* constructors that convert raw input, and observations that convert results out). Algebra operations take and return the chapter's uniform carrier type, are total on it, and so compose.
 
 J3 Monoid / group structure matches the chapter's claim. Chapter 6 is
    claimed to be a group, so it needs inverses that satisfy the laws, not

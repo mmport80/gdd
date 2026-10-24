@@ -77,9 +77,9 @@ copy that pattern. Every ✓ needs a `> testN = ...` binding.
   same name for the same concept as earlier chapters.
 - Make invalid states unrepresentable where the rules allow it. Hide raw
   constructors behind `mk*` smart constructors that return Maybe or
-  Either. Maybe/Either is only created at the boundary (J2). An operation
-  may work on a lifted type (for example Maybe Rational, as in ch3) if it
-  stays total on that type.
+  Either. Maybe/Either is only created at the boundary (J2).
+  Operations take and return the chapter's uniform carrier type and are
+  total on it, so they compose.
 - Operations on the chapter's type must be total.
 
 ## 3. Write the algebra
@@ -111,8 +111,7 @@ copy that pattern. Every ✓ needs a `> testN = ...` binding.
 - Add one `> testN = ...` per law the scorecard will claim. Each law is an
   expression that evaluates to Bool. The checker runs them through
   `ghc -e` and each must print True (G2).
-- Include the law that the chapter is about. For a claim the chapter
-  makes as ✗, add no law. Write a reason instead.
+- For a claim the chapter makes as ✗, add no law. Write a reason instead.
 - Law bindings are code. Which laws to show is the author's call. If it is
   unclear, list the candidate laws in the PR description and let the
   author pick.
