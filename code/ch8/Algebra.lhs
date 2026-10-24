@@ -82,15 +82,16 @@ Example
 >     ++ "  wrong: " ++ show (wrongGuesses secret guessed)
 >     ++ "  " ++ verdict secret guessed
 >
-> play :: Secret -> [String] -> IO ()
-> play secret guesses = mapM_ (putStrLn . describe secret) states
+> play :: Secret -> IO ()
+> play secret = mapM_ (putStrLn . describe secret) states
 >   where
+>     guesses = ["a", "h", "s", "x", "k", "e", "l"]
 >     states = scanl (<>) mempty (map guessesFrom guesses)
 >
 > example :: IO ()
 > example = case mkSecret "haskell" of
 >   Nothing     -> putStrLn "not a valid secret"
->   Just secret -> play secret ["a", "h", "s", "x", "k", "e", "l"]
+>   Just secret -> play secret
 
 > ab, bc, cd :: Guesses
 > ab = guessesFrom "ab"
