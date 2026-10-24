@@ -93,15 +93,10 @@ candidates per chapter. If none meets both bars, stop and report the best one.
 
 ## Hand-off
 
-Report in the PR or on the thread, in addition to the PR contents in plan
-section 10:
-
-- baseline and final checker output for each chapter touched;
-- the score table (J1 to J6, X1 to X6) for baseline and final, with the reason
-  for each change;
-- each step back: the survey, the starting point, the hypothesis, and why a
-  local minimum was suspected;
-- candidate algebras tried, and why each was kept or dropped.
-
 Stop when both bars are met, or when the round and candidate limits are
 reached, whichever comes first.
+
+The PR description follows plan section 10. Per-round hypotheses, score
+reasons, step backs, and candidate decisions are in the commit history, so do
+not repeat them in the PR. The only addition is which limit or bar ended the
+run.
