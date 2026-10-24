@@ -9,8 +9,8 @@ author's (see AGENTS.md and plan section 0).
 ## Inputs
 
 1. docs/chapter-code-plan.md. Follow it for every round.
-2. docs/chapter-code-assessment.md: gates, J1 to J6, X1 to X6, bars (J and X
-   at 8 of 12).
+2. docs/chapter-code-assessment.md: gates, J1 to J6, X1 to X6, and the
+   points scale (J and X, each out of 12; higher is better).
 3. `chapters/chN.md`, if present. Read it only to check the code matches the
    claim. Do not edit it.
 
@@ -27,9 +27,9 @@ is no baseline to run; go to Round 0.
 ## Round 0 (no algebra yet)
 
 Write `code/chN/Algebra.lhs` de novo from plan sections 2 to 6 and the chapter
-claim. Commit it as round 0 with the hypothesis "baseline draft meets J/X
-bars", then judge it as usual. Round 1 onwards is about passing the gates, not
-about scores.
+claim. Commit it as round 0 with the hypothesis "baseline draft scores high
+on J and X", then judge it as usual. From round 1 on, a kept round must pass
+the gates and raise the points of the items it names.
 
 ## Round loop
 
@@ -49,13 +49,16 @@ same kind of move with new wording.
 1. Write the hypothesis.
 2. Make the move in `code/chN/Algebra.lhs` (or a candidate file).
 3. Commit the round first, on the agent branch, with the hypothesis and rubric
-   item in the message. Commit even if the round will fail.
+   item in the message. Commit even if the round will fail. Format:
+   `round N (ITEM): hypothesis`, for example `round 3 (X1): wrap code lines
+   over 60 columns`.
 4. Judge it: run the checker, then score J1 to J6 and X1 to X6 (0, 1, or 2).
    Each score needs a reason that points to a line range.
 5. Keep the round only if all gates pass, the score of the items it names goes
    up (summed), and no item it does not name drops.
-6. If not kept, commit a reversal that restores the previous contents, with
-   the round and reason in the message. A kept round gets no reversal.
+6. If not kept, commit a reversal that restores the previous contents. Format:
+   `revert round N (ITEM): not kept, reason`, with a line saying which round's
+   contents are restored. A kept round gets no reversal.
 
 The history is the record of attempts. Failed and reverted rounds stay in it.
 Do not squash, amend, rebase, or force-push the agent branch, and do not
@@ -66,6 +69,10 @@ That is a ceiling, not a plan: before the third non-improving round, check for
 a local minimum (below). Length is not a goal; a shorter file that scores
 lower is not kept.
 
+A kept round does not end the run. After a kept round, keep going with the
+next hypothesis until a stop rule in Hand-off applies. Reaching a score that
+looks good enough is not a stop rule.
+
 ## Local minima and stepping back
 
 A stall can mean the design is the limit: every small edit the gates allow
@@ -75,7 +82,7 @@ round:
 
 1. Survey the wider landscape. Re-read the rubric and `chapters/chN.md`, if
    present. Note two or three different designs (another carrier, observation,
-   or monoid/group structure) that could meet both bars.
+   or monoid/group structure) that could score higher on J and X.
 2. Check whether the design is the limit. For each weakest item, ask whether a
    small edit inside this design can fix it. If none can, the next move is a
    different design.
@@ -100,7 +107,8 @@ design, write a second candidate with a different algebra for the same
 chapter (plan section 2). Put it in
 `code/chN/candidates/<short-name>.lhs`, run the same gates and scoring, keep
 the better one as `Algebra.lhs`, and move or drop the other. At most three
-candidates per chapter. If none meets both bars, stop and report the best one.
+candidates per chapter. If no candidate scores higher on J and X than the
+current file, keep the current file and report it.
 
 ## Agent limits
 
@@ -110,6 +118,8 @@ candidates per chapter. If none meets both bars, stop and report the best one.
   pass. If the rubric seems wrong, say so in the review.
 - Agent scores are a working estimate. The human scores in review are the
   record. Do not mark an item as passed on your own authority.
+- Do not add prose lines to `Algebra.lhs`, not even one sentence to explain a
+  line. If a sentence seems needed, put it in the PR as a suggestion.
 - Changes to ✓ / ✗ claims, headings, or other prose are the author's call;
   raise them in the review (plan section 7). Adding a law binding that checks
   an existing claim is allowed.
@@ -117,10 +127,15 @@ candidates per chapter. If none meets both bars, stop and report the best one.
 
 ## Hand-off
 
-Stop when both bars are met, or when the round and candidate limits are
-reached, whichever comes first.
+Stop at the first of these:
+
+- three non-improving rounds in a row, after the local-minimum check;
+- three candidates used for the chapter;
+- the owner tells you to stop.
+
+This document sets no total round cap.
 
 The PR description follows plan section 10. Per-round hypotheses, score
 reasons, step backs, and candidate decisions are in the commit history, so do
-not repeat them in the PR. The only addition is which limit or bar ended the
-run.
+not repeat them in the PR. The only addition is which stop rule ended the
+run, and the final J and X points.
