@@ -56,16 +56,16 @@ Observations
 > wrongGuesses (Secret word) (Guesses guessed) =
 >   Set.size (Set.filter (`notElem` word) guessed)
 >
-> won :: Secret -> Guesses -> Bool
-> won (Secret word) (Guesses guessed) =
->   all (`Set.member` guessed) word
->
 > maxWrong :: Int
 > maxWrong = 6
 >
 > lost :: Secret -> Guesses -> Bool
 > lost secret guessed =
 >   wrongGuesses secret guessed >= maxWrong
+>
+> won :: Secret -> Guesses -> Bool
+> won (Secret word) (Guesses guessed) =
+>   all (`Set.member` guessed) word
 
 Example
 -------
