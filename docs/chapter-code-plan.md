@@ -110,7 +110,13 @@ copy that pattern. Every ✓ needs a `> testN = ...` binding.
 - Add one `> testN = ...` per law the scorecard will claim. Each law is an
   expression that evaluates to Bool. The checker runs them through
   `ghc -e` and each must print True (G2).
-- For a claim the chapter makes as ✗, add no law. Write a reason instead.
+- The scorecard marks each algebraic property as ✓ or ✗. ✓ means the
+  algebra has the property, so bind a law that checks it. ✗ means the
+  algebra does not have the property (e.g. order matters, so it is not
+  commutative). A law that would be false cannot be bound, so a ✗ gets no
+  law. Instead, write a short reason: why the property fails here and,
+  where possible, a small concrete counterexample (two inputs whose
+  results differ).
 - Law bindings are code. Which laws to show is the author's call. If it is
   unclear, list the candidate laws in the PR description and let the
   author pick.
