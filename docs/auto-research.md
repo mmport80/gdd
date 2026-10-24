@@ -14,28 +14,46 @@ author's (see AGENTS.md and plan section 0).
 3. `chapters/chN.md`, if present. Read it only to check the code matches the
    claim. Do not edit it.
 
-Starting point: the current `code/chN/Algebra.lhs`, or
-`code/template/Template.lhs` if the chapter has none.
+Starting point: the current `code/chN/Algebra.lhs`. If the chapter has none,
+copy `code/template/Template.lhs` or go to Round 0.
 
 ## Baseline
 
 Run the checker (plan section 9). Record gate status, law binding count and
 pass/fail, and the ✓ / ✗ counts. A failing gate is a valid starting point;
-the first job is to make the gates pass.
+the first job is to make the gates pass. If there is no `Algebra.lhs`, there
+is no baseline to run; go to Round 0.
+
+## Round 0 (no algebra yet)
+
+Write `code/chN/Algebra.lhs` de novo from plan sections 2 to 6 and the chapter
+claim. Commit it as round 0 with the hypothesis "baseline draft meets J/X
+bars", then judge it as usual. Round 1 onwards is about passing the gates, not
+about scores.
 
 ## Round loop
 
-Each round changes one thing, with a one-line hypothesis tied to a rubric
-item, for example "J1: add a law for the ✓ on inverses".
+Each round is one move (below), with a one-line hypothesis naming the rubric
+item or items it targets, for example "J1: add a law for the ✓ on inverses".
+
+Move kinds:
+
+- small edit: a law, an example line, a renamed or removed helper;
+- structural edit: changes to the types, the carrier, or the operations;
+- new algebra: a candidate file (see "Trying a new algebra");
+- multi-item edit: one change aimed at several named items.
+
+Choose the kind from the weakest items and the landscape. Do not repeat the
+same kind of move with new wording.
 
 1. Write the hypothesis.
-2. Make a minimal change in `code/chN/Algebra.lhs` (or a candidate file).
+2. Make the move in `code/chN/Algebra.lhs` (or a candidate file).
 3. Commit the round first, on the agent branch, with the hypothesis and rubric
    item in the message. Commit even if the round will fail.
 4. Judge it: run the checker, then score J1 to J6 and X1 to X6 (0, 1, or 2).
    Each score needs a reason that points to a line range.
-5. Keep the round only if all gates pass and the score for the changed bar
-   goes up without another item dropping by more than it gained.
+5. Keep the round only if all gates pass, the score of the items it names goes
+   up (summed), and no item it does not name drops.
 6. If not kept, commit a reversal that restores the previous contents, with
    the round and reason in the message. A kept round gets no reversal.
 
@@ -63,8 +81,13 @@ round:
    different design.
 3. Pick the next hypothesis from that survey. The starting point may be the
    best kept version if the score has drifted.
-4. Change the kind of move, not only its size: a structural edit or a
-   candidate algebra. Do not repeat the same kind of edit with new wording.
+4. Change the kind of move, not only its size: a structural edit, a
+   multi-item edit, or a candidate algebra. Do not repeat the same kind of edit
+   with new wording.
+
+The survey may conclude that the design is the limit. A step back to a
+substantially different design is a new candidate file, not an edit to
+`Algebra.lhs`, so the current design stays comparable (see below).
 
 A step back is not a new budget. It does not reset the stall counter; only a
 kept round does. A step back that also stalls counts toward the same
@@ -72,8 +95,9 @@ three-round limit, and the next move is a candidate algebra or a stop.
 
 ## Trying a new algebra
 
-When refinement stalls, write a second candidate with a different algebra for
-the same chapter (plan section 2). Put it in
+When refinement stalls, or a step back calls for a substantially different
+design, write a second candidate with a different algebra for the same
+chapter (plan section 2). Put it in
 `code/chN/candidates/<short-name>.lhs`, run the same gates and scoring, keep
 the better one as `Algebra.lhs`, and move or drop the other. At most three
 candidates per chapter. If none meets both bars, stop and report the best one.
