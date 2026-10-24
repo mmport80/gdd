@@ -75,27 +75,26 @@ Scoring — blacks are positional, whites are relational:
 Example
 -------
 
+> feedback :: Clue -> String
+> feedback c = show (clueBlacks c) ++ " black, "
+>   ++ show (clueWhites c) ++ " white"
+
+> clues :: Game -> [Clue]
+> clues (Game cs) = cs
+
 > example :: IO ()
-> example = do
->   let secret = [Red, Blue, Green, Yellow] :: Code
->   let game = mempty :: Game
->
->   case mkGuess secret [Red, Red, Blue, Green] game of
->     Just game1 -> do
->       let Clue _ b1 w1 = lastClue game1
->       putStrLn $ "Guess 1: " ++ show b1 ++ " black, " ++ show w1 ++ " white"
->
->       case mkGuess secret [Red, Blue, Green, Yellow] game1 of
->         Just game2 -> do
->           let Clue _ b2 w2 = lastClue game2
->           putStrLn $ "Guess 2: " ++ show b2 ++ " black, " ++ show w2 ++ " white"
->           putStrLn $ "Won? " ++ show (won game2)
->           putStrLn $ "Guesses: " ++ show (guessCount game2)
->         Nothing -> putStrLn "Invalid guess"
->     Nothing -> putStrLn "Invalid guess"
->
-> lastClue :: Game -> Clue
-> lastClue (Game clues) = last clues
+> example = case traverse turn guesses of
+>   Nothing    -> putStrLn "Invalid guess"
+>   Just games -> report (mconcat games)
+>   where
+>     secret  = [Red, Blue, Green, Yellow]
+>     guesses = [ [Red, Red, Blue, Green]
+>               , [Red, Blue, Green, Yellow] ]
+>     turn g  = mkGuess secret g mempty
+>     report game = do
+>       mapM_ (putStrLn . feedback) (clues game)
+>       putStrLn $ "Won? " ++ show (won game)
+>       putStrLn $ "Guesses: " ++ show (guessCount game)
 
 > g1, g2, g3 :: Game
 > g1 = Game [Clue [Red, Blue] 1 0]
