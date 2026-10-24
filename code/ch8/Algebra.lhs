@@ -48,37 +48,39 @@ Observations
 ------------
 
 > maskedWord :: Secret -> Guesses -> String
-> maskedWord (Secret word) (Guesses gs) =
->   [ if c `Set.member` gs then c else '_' | c <- word ]
+> maskedWord (Secret word) (Guesses guessed) =
+>   [ if c `Set.member` guessed then c else '_'
+>   | c <- word ]
 >
 > wrongGuesses :: Secret -> Guesses -> Int
-> wrongGuesses (Secret word) (Guesses gs) =
->   Set.size (Set.filter (`notElem` word) gs)
+> wrongGuesses (Secret word) (Guesses guessed) =
+>   Set.size (Set.filter (`notElem` word) guessed)
 >
 > won :: Secret -> Guesses -> Bool
-> won (Secret word) (Guesses gs) =
->   all (`Set.member` gs) word
+> won (Secret word) (Guesses guessed) =
+>   all (`Set.member` guessed) word
 >
 > maxWrong :: Int
 > maxWrong = 6
 >
 > lost :: Secret -> Guesses -> Bool
-> lost secret gs = wrongGuesses secret gs >= maxWrong
+> lost secret guessed =
+>   wrongGuesses secret guessed >= maxWrong
 
 Example
 -------
 
 > verdict :: Secret -> Guesses -> String
-> verdict secret gs
->   | won secret gs  = "won"
->   | lost secret gs = "lost"
->   | otherwise      = "playing"
+> verdict secret guessed
+>   | won secret guessed  = "won"
+>   | lost secret guessed = "lost"
+>   | otherwise           = "playing"
 >
 > describe :: Secret -> Guesses -> String
-> describe secret gs =
->   maskedWord secret gs
->     ++ "  wrong: " ++ show (wrongGuesses secret gs)
->     ++ "  " ++ verdict secret gs
+> describe secret guessed =
+>   maskedWord secret guessed
+>     ++ "  wrong: " ++ show (wrongGuesses secret guessed)
+>     ++ "  " ++ verdict secret guessed
 >
 > play :: Secret -> IO ()
 > play secret = mapM_ (putStrLn . describe secret) states
