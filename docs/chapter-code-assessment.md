@@ -111,14 +111,14 @@ review.
 
 A chapter passes when all gates pass. Judged items are scored 0-2 each,
 recorded in the review of the issue or PR. Technical (J) and readability
-(X) are scored separately, each out of 12, and both count toward ready:
+(X) are scored separately, each out of 12 (six items, 0-2 each):
 
-- J: 8 of 12 or more (six items).
-- X: 8 of 12 or more (six items).
+- J: points out of 12.
+- X: points out of 12.
 
-A chapter is ready when it passes the gates and meets both bars. Anything
-below needs refinement. The X bar is a starting point and can be changed
-after the first chapters are scored.
+There is no threshold on J or X. Higher points are better, and the points
+are reported as they are; a chapter is not finished because it reaches some
+number.
 
 ## Current status (first run)
 
