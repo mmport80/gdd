@@ -11,10 +11,10 @@ Chapter ??: Hangman
 Types
 -----
 
-> newtype Guesses = Guesses (Set Char)
+> newtype Guesses = Guesses (Set Char)   -- opaque
 >   deriving (Eq, Show)
 >
-> newtype Secret = Secret String
+> newtype Secret = Secret String   -- opaque
 >   deriving (Eq, Show)
 
 > -- Raw input enters here: only lowercase
