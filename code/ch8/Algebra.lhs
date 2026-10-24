@@ -17,7 +17,7 @@ Types
 > newtype Secret = Secret String
 >   deriving (Eq, Show)
 
-> -- Raw input enters here: only lowercase letters are guesses.
+> -- Raw input enters here: lowercase letters only.
 > mkGuess :: Char -> Maybe Guesses
 > mkGuess c
 >   | isAsciiLower c = Just (Guesses (Set.singleton c))
@@ -26,11 +26,13 @@ Types
 > guessesFrom :: String -> Guesses
 > guessesFrom = mconcat . mapMaybe mkGuess
 
-> -- Raw input enters here: a secret is one or more lowercase letters.
+> -- Raw input enters here: a secret is one or more
+> -- lowercase letters.
 > mkSecret :: String -> Maybe Secret
 > mkSecret word
->   | not (null word) && all isAsciiLower word = Just (Secret word)
->   | otherwise                                = Nothing
+>   | not (null word)
+>   , all isAsciiLower word = Just (Secret word)
+>   | otherwise             = Nothing
 
 Algebra
 -------
@@ -53,7 +55,8 @@ Observations
 >   Set.size (Set.filter (`notElem` word) gs)
 >
 > won :: Secret -> Guesses -> Bool
-> won (Secret word) (Guesses gs) = all (`Set.member` gs) word
+> won (Secret word) (Guesses gs) =
+>   all (`Set.member` gs) word
 >
 > maxWrong :: Int
 > maxWrong = 6
