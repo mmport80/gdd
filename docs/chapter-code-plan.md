@@ -49,15 +49,11 @@ Read these in order. Each has a specific use.
 4. docs/chapter-code-assessment.md. This is the rubric. Its gates (G1 to
    G3) and judged items (J1 to J6, X1 to X6) are the target. Read J1 and
    X1 before writing.
-5. The nearest earlier chapter code, for notation and style:
-   - code/ch4/Algebra.lhs: monoid, smart constructors (Maybe at the
-     boundary), an append-only log.
-   - code/ch6/Algebra.lhs: group-like inverses (`invert`, `~~`), a
-     projection function (`project`), constraint checks.
-   - code/ch7/Algebra.lhs: partial solutions and patches.
-   Reuse names and shapes that already exist (Position, Cell, Delta,
-   mkDelta, project, the Semigroup/Monoid instance pattern) so the reader
-   sees the same notation (X6).
+5. All available chapter code (every code/ch*/Algebra.lhs that exists),
+   for inspiration and guidance. Read each one for notation, style, and
+   structure. Reuse names and shapes that already exist (Position, Cell,
+   Delta, mkDelta, project, the Semigroup/Monoid instance pattern) so the
+   reader sees the same notation (X6).
 6. tools/assess_chapter_code.hs. Its checks are the mechanical gates.
 
 Note the state of the existing code. ch4 to ch7 pass the gates, but have
