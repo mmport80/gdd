@@ -1,7 +1,6 @@
 #!/usr/bin/env -S nix shell nixpkgs#ghc --impure --command runhaskell
 
-> {-# LANGUAGE NumericUnderscores #-}
-> import Data.List (foldl', nub, sort)
+> import Data.List (nub)
 
 Chapter ??: Mastermind
 =======================
@@ -89,6 +88,7 @@ Example
 >           let Clue _ b2 w2 = lastClue game2
 >           putStrLn $ "Guess 2: " ++ show b2 ++ " black, " ++ show w2 ++ " white"
 >           putStrLn $ "Won? " ++ show (won game2)
+>           putStrLn $ "Guesses: " ++ show (guessCount game2)
 >         Nothing -> putStrLn "Invalid guess"
 >     Nothing -> putStrLn "Invalid guess"
 >
