@@ -42,16 +42,23 @@ item, for example "J1: add a law for the ✓ on inverses".
 1. Write the hypothesis in one line.
 2. Make the change in `code/chN/Algebra.lhs` (or a candidate file, see
    below). Keep the change minimal and in the chapter's existing style.
-3. Run `tools/assess_chapter_code.hs N`. If any gate fails, revert the
-   round and try a different change.
-4. Score the judged items J1 to J6 and X1 to X6 (0, 1, or 2 each). Each
-   score needs a reason that points to a line range. "Looks cleaner" is not
-   a reason.
+3. Commit the round first, on the agent branch, with the hypothesis and
+   the rubric item in the message. Commit even if the round will fail.
+4. Judge the round. Run `tools/assess_chapter_code.hs N`, then score the
+   judged items J1 to J6 and X1 to X6 (0, 1, or 2 each). Each score needs
+   a reason that points to a line range. "Looks cleaner" is not a reason.
 5. Keep the round only if all gates pass and the total of the scored
    items for the changed bar goes up, without dropping another item by
-   more than it gained. Otherwise revert.
-6. Commit kept rounds on the agent branch. One commit per round, with the
-   rubric item in the message. Do not commit reverted rounds.
+   more than it gained. A round that fails a gate does not keep.
+6. If the round was not kept, commit a reversal: a new commit that
+   restores the previous contents of the changed files, with the round
+   and the reason in the message. Do this only when the round did not
+   improve the score. A kept round gets no reversal commit.
+
+The history is the record of attempts. Failed and reverted rounds stay in
+it as commits, so the log shows every try in order. Do not squash, amend,
+or rebase these commits, and do not force-push the agent branch. Squash
+merges of these PRs are not allowed, for the same reason.
 
 Stop refining a candidate after three rounds in a row with no kept change.
 The limit is a ceiling, not a plan: before using up the three rounds,
