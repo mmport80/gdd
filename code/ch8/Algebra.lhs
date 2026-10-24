@@ -92,11 +92,11 @@ Example
 > bc = guessesFrom "bc"
 > cd = guessesFrom "cd"
 
-> test1 = (ab <> bc) <> cd == ab <> (bc <> cd)
-> test2 = mempty <> ab == ab
-> test3 = ab <> mempty == ab
-> test4 = ab <> bc == bc <> ab
-> test5 = ab <> ab == ab
+> testAssociative = (ab <> bc) <> cd == ab <> (bc <> cd)
+> testLeftIdentity = mempty <> ab == ab
+> testRightIdentity = ab <> mempty == ab
+> testCommutative = ab <> bc == bc <> ab
+> testIdempotent = ab <> ab == ab
 
 > main :: IO ()
 > main = example
@@ -105,9 +105,12 @@ Algebraic Scorecard
 -------------------
 
   Closure         ✓  <> takes two Guesses, returns a Guesses
-  Associativity   ✓  test1
-  Identity        ✓  test2, test3 (mempty = no guesses)
-  Commutativity   ✓  test4 (guess order does not matter)
-  Idempotence     ✓  test5 (guessing a letter twice changes nothing)
+  Associativity   ✓  testAssociative
+  Identity        ✓  testLeftIdentity, testRightIdentity
+                     (mempty = no guesses)
+  Commutativity   ✓  testCommutative
+                     (guess order does not matter)
+  Idempotence     ✓  testIdempotent
+                     (guessing a letter twice changes nothing)
   Invertibility   ✗  no inverse: after guessesFrom "a", no g gives
                      mempty; a made guess cannot be undone
