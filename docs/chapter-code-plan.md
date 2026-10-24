@@ -180,5 +180,5 @@ author asks. Those are the author's text.
 - ch3 does not have the required headings (issue #19, author's call).
 - ch4 to ch7 lack law bindings, so J1 is unverified for them. Adding them
   is code work, and it can be its own PR per chapter.
-- The X bar (8 of 12) is a starting point and may change after the first
-  chapters are scored (docs/chapter-code-assessment.md).
+- J and X are points out of 12 each, higher is better, with no pass or fail
+  (docs/chapter-code-assessment.md).
