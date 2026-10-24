@@ -23,6 +23,7 @@ Types
 >   } deriving (Eq, Show)
 >
 > newtype Game = Game [Clue]   -- move log, opaque
+>   deriving (Eq, Show)
 
 Algebra
 -------
@@ -93,6 +94,15 @@ Example
 >
 > lastClue :: Game -> Clue
 > lastClue (Game clues) = last clues
+
+> g1, g2, g3 :: Game
+> g1 = Game [Clue [Red, Blue] 1 0]
+> g2 = Game [Clue [Blue, Red] 0 2]
+> g3 = Game [Clue [Green, Green] 0 0]
+
+> testAssociative = (g1 <> g2) <> g3 == g1 <> (g2 <> g3)
+> testLeftIdentity = mempty <> g1 == g1
+> testRightIdentity = g1 <> mempty == g1
 
 > main :: IO ()
 > main = example
