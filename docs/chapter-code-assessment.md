@@ -92,9 +92,11 @@ X5 Reads top to bottom. Definitions come before they are used, in the
    order the chapter explains them. The reader does not have to jump back
    and forth to follow the example.
 
-X6 Consistent notation. The same concept has the same name and shape as
-   in earlier chapters. A reader who knows one chapter can read the next
-   without relearning the symbols.
+X6 Consistent notation. Where a concept already appears in another chapter,
+   it reuses that chapter's name and shape, so a reader who knows one chapter
+   can read the next without relearning the symbols. This is guidance, not a
+   hard rule: a chapter may depart from it when the concept needs a different
+   shape.
 
 ## High-level goal (guidance, not scored)
 
