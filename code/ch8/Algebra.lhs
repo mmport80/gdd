@@ -1,5 +1,6 @@
 #!/usr/bin/env -S nix shell nixpkgs#ghc --impure --command runhaskell
 
+> import Data.Char (isAsciiLower)
 > import Data.Maybe (mapMaybe)
 > import Data.Set (Set)
 > import qualified Data.Set as Set
@@ -15,12 +16,11 @@ Types
 >
 > type Secret = String
 
-Raw input enters through mkGuess. Only lowercase letters are guesses.
-
+> -- Raw input enters here: only lowercase letters are guesses.
 > mkGuess :: Char -> Maybe Guesses
 > mkGuess c
->   | c `elem` ['a' .. 'z'] = Just (Guesses (Set.singleton c))
->   | otherwise             = Nothing
+>   | isAsciiLower c = Just (Guesses (Set.singleton c))
+>   | otherwise      = Nothing
 >
 > guessesFrom :: String -> Guesses
 > guessesFrom = mconcat . mapMaybe mkGuess
@@ -52,28 +52,40 @@ Observations
 > maxWrong = 6
 >
 > lost :: Secret -> Guesses -> Bool
-> lost secret guesses = wrongGuesses secret guesses >= maxWrong
+> lost secret gs = wrongGuesses secret gs >= maxWrong
 
 Example
 -------
 
+> verdict :: Secret -> Guesses -> String
+> verdict secret gs
+>   | won secret gs  = "won"
+>   | lost secret gs = "lost"
+>   | otherwise      = "playing"
+>
 > describe :: Secret -> Guesses -> String
-> describe secret guesses =
->   maskedWord secret guesses
->     ++ "  wrong: " ++ show (wrongGuesses secret guesses)
+> describe secret gs =
+>   maskedWord secret gs
+>     ++ "  wrong: " ++ show (wrongGuesses secret gs)
+>     ++ "  " ++ verdict secret gs
 >
 > example :: IO ()
 > example = mapM_ (putStrLn . describe secret) states
 >   where
 >     secret = "haskell"
->     states = scanl (<>) mempty (map guessesFrom ["a", "h", "s", "x", "k", "e", "l"])
+>     guesses = ["a", "h", "s", "x", "k", "e", "l"]
+>     states = scanl (<>) mempty (map guessesFrom guesses)
 
-> test1 = (guessesFrom "ab" <> guessesFrom "bc") <> guessesFrom "cd"
->      == guessesFrom "ab" <> (guessesFrom "bc" <> guessesFrom "cd")
-> test2 = mempty <> guessesFrom "ab" == guessesFrom "ab"
-> test3 = guessesFrom "ab" <> mempty == guessesFrom "ab"
-> test4 = guessesFrom "ab" <> guessesFrom "bc" == guessesFrom "bc" <> guessesFrom "ab"
-> test5 = guessesFrom "ab" <> guessesFrom "ab" == guessesFrom "ab"
+> ab, bc, cd :: Guesses
+> ab = guessesFrom "ab"
+> bc = guessesFrom "bc"
+> cd = guessesFrom "cd"
+
+> test1 = (ab <> bc) <> cd == ab <> (bc <> cd)
+> test2 = mempty <> ab == ab
+> test3 = ab <> mempty == ab
+> test4 = ab <> bc == bc <> ab
+> test5 = ab <> ab == ab
 
 > main :: IO ()
 > main = example
