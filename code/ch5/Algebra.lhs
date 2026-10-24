@@ -51,8 +51,10 @@ Observations
 Has the player won (all blacks)?
 
 > won :: Game -> Bool
-> won (Game clues) = any (\c -> clueBlacks c > 0 && clueWhites c == 0
->                              && clueBlacks c == length (clueGuess c)) clues
+> won (Game clues) = any solved clues
+>   where
+>     solved c = clueBlacks c > 0
+>                && clueBlacks c == length (clueGuess c)
 
 Number of guesses so far:
 
