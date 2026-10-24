@@ -1,7 +1,6 @@
 #!/usr/bin/env -S nix shell nixpkgs#ghc --impure --command runhaskell
 
-> {-# LANGUAGE NumericUnderscores #-}
-> import Data.List (foldl', nub, sort)
+> import Data.List (nub)
 
 Chapter ??: Mastermind
 =======================
@@ -23,6 +22,7 @@ Types
 >   } deriving (Eq, Show)
 >
 > newtype Game = Game [Clue]   -- move log, opaque
+>   deriving (Eq, Show)
 
 Algebra
 -------
@@ -51,8 +51,10 @@ Observations
 Has the player won (all blacks)?
 
 > won :: Game -> Bool
-> won (Game clues) = any (\c -> clueBlacks c > 0 && clueWhites c == 0
->                              && clueBlacks c == length (clueGuess c)) clues
+> won (Game clues) = any solved clues
+>   where
+>     solved c = clueBlacks c > 0
+>                && clueBlacks c == length (clueGuess c)
 
 Number of guesses so far:
 
@@ -73,26 +75,35 @@ Scoring — blacks are positional, whites are relational:
 Example
 -------
 
+> feedback :: Clue -> String
+> feedback c = show (clueBlacks c) ++ " black, "
+>   ++ show (clueWhites c) ++ " white"
+
+> clues :: Game -> [Clue]
+> clues (Game cs) = cs
+
 > example :: IO ()
-> example = do
->   let secret = [Red, Blue, Green, Yellow] :: Code
->   let game = mempty :: Game
->
->   case mkGuess secret [Red, Red, Blue, Green] game of
->     Just game1 -> do
->       let Clue _ b1 w1 = lastClue game1
->       putStrLn $ "Guess 1: " ++ show b1 ++ " black, " ++ show w1 ++ " white"
->
->       case mkGuess secret [Red, Blue, Green, Yellow] game1 of
->         Just game2 -> do
->           let Clue _ b2 w2 = lastClue game2
->           putStrLn $ "Guess 2: " ++ show b2 ++ " black, " ++ show w2 ++ " white"
->           putStrLn $ "Won? " ++ show (won game2)
->         Nothing -> putStrLn "Invalid guess"
->     Nothing -> putStrLn "Invalid guess"
->
-> lastClue :: Game -> Clue
-> lastClue (Game clues) = last clues
+> example = case traverse turn guesses of
+>   Nothing    -> putStrLn "Invalid guess"
+>   Just games -> report (mconcat games)
+>   where
+>     secret  = [Red, Blue, Green, Yellow]
+>     guesses = [ [Red, Red, Blue, Green]
+>               , [Red, Blue, Green, Yellow] ]
+>     turn g  = mkGuess secret g mempty
+>     report game = do
+>       mapM_ (putStrLn . feedback) (clues game)
+>       putStrLn $ "Won? " ++ show (won game)
+>       putStrLn $ "Guesses: " ++ show (guessCount game)
+
+> g1, g2, g3 :: Game
+> g1 = Game [Clue [Red, Blue] 1 0]
+> g2 = Game [Clue [Blue, Red] 0 2]
+> g3 = Game [Clue [Green, Green] 0 0]
+
+> testAssociative = (g1 <> g2) <> g3 == g1 <> (g2 <> g3)
+> testLeftIdentity = mempty <> g1 == g1
+> testRightIdentity = g1 <> mempty == g1
 
 > main :: IO ()
 > main = example

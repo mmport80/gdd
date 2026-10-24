@@ -7,7 +7,7 @@ Games to build as chapters, each teaching different algebraic/functional concept
 | Game              | Status  | Key Concepts                              |
 |-------------------|---------|-------------------------------------------|
 | Noughts & Crosses | Done    | Monoids, smart constructors (Ch4)         |
-| Mastermind        | —       | Feedback as a monoid, secret vs guess     |
+| Mastermind        | Draft   | Feedback as a monoid, secret vs guess     |
 | Sudoku            | —       | Constraint propagation, 2D grids, backtracking |
 | Crosswords        | —       | Adjacency, overlapping, layout algebra    |
 
