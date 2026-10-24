@@ -19,7 +19,7 @@ docs/chapter-code-assessment.md.
    `code/template/Template.lhs`.
 4. The `code/ch*/Algebra.lhs` files of every chapter, for names and shapes,
    so the notation matches (X6). Chapter order is not settled and every
-   chapter is relevant. No chapter is treated as a neighbour.
+   chapter is relevant.
 5. `chapters/chN.md`, if present, to see what the chapter claims. Read it
    only to check that the code matches the claim. Do not edit it.
 
