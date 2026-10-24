@@ -82,7 +82,7 @@ round:
 
 1. Survey the wider landscape. Re-read the rubric and `chapters/chN.md`, if
    present. Note two or three different designs (another carrier, observation,
-   or monoid/group structure) that could meet both bars.
+   or monoid/group structure) that could score higher on J and X.
 2. Check whether the design is the limit. For each weakest item, ask whether a
    small edit inside this design can fix it. If none can, the next move is a
    different design.
